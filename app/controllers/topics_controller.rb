@@ -19,27 +19,32 @@ class TopicsController < ApplicationController
     @topic = @sub.topics.new(topic_params)
 
     if @topic.save
-      redirect_to sub_topic_path(@sub, @topic)
-
-      def sub_topic_path(sub_id, id)
-        return "/subs/#{sub_id}/topics/#{id}"
-      end
-
-      sub_topic_path(@sub, @topic)
+      redirect_to sub_topic_path(@sub.id, @topic.id)
 
     else
-
+      render :new
     end
 
   end
 
   def edit
+    render partial: "form"
   end
 
   def update
+    
+    if @topic.update(topic_params)
+      #shortcut: redirect_to [@sub, @topic]
+      redirect_to sub_topic_path(@sub, @topic)
+    else
+    
+    end
+
   end
 
   def destroy
+    @topic.destroy
+    redirect_to sub_topics_path
   end
 
   private
