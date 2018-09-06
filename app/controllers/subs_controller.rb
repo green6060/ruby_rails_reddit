@@ -53,7 +53,7 @@ class SubsController < ApplicationController
 
   private
     def set_sub
-      #@sub = Sub.find(params[:id])
+      @sub = Sub.find(params[:id])
     end
 
     def sub_params
